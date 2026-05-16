@@ -1,0 +1,56 @@
+{
+  "name": "temp_project",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "@mistralai/mistralai": "^2.2.1",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^13.2.1",
+    "firebase": "^12.13.0",
+    "firebase-admin": "^13.9.0",
+    "framer-motion": "^12.38.0",
+    "gsap": "^3.15.0",
+    "katex": "^0.16.47",
+    "netlify-cli": "^26.0.1",
+    "nodemailer": "^8.0.7",
+    "openai": "^6.37.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-katex": "^3.1.0",
+    "react-markdown": "^10.1.0",
+    "react-scripts": "5.0.1",
+    "react-syntax-highlighter": "^16.1.1",
+    "rehype-katex": "^7.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0",
+    "resend": "^6.12.3",
+    "web-vitals": "^2.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
