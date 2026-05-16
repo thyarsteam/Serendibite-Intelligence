@@ -8,7 +8,7 @@ const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "serendibite.firebaseapp.com",
   projectId: "serendibite",
-  storageBucket: "serendibite.firebasestorage.app",
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: "1061642988257",
   appId: "1:1061642988257:web:4379659973fecb27c165a0",
   measurementId: "G-1B57M1PS3N"
