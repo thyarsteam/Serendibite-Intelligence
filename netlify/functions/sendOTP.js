@@ -56,10 +56,10 @@ exports.handler = async (event) => {
     await transporter.sendMail({
       from:    process.env.EMAIL_USER,
       to:      email,
-      subject: "Your Sapphire sign-in code",
+      subject: "Your Serendibite sign-in code",
       html: `
         <div style="font-family:monospace;max-width:480px;margin:0 auto;padding:32px;background:#0d1a4a;color:#f0f6ff;border-radius:8px;">
-          <p style="font-size:12px;letter-spacing:0.15em;color:#80d4ff;margin-bottom:8px;">// SAPPHIRE INTELLIGENCE</p>
+          <p style="font-size:12px;letter-spacing:0.15em;color:#80d4ff;margin-bottom:8px;">// SERENDIBITE INTELLIGENCE</p>
           <h2 style="font-size:22px;font-weight:700;margin-bottom:16px;">Your sign-in code</h2>
           <p style="color:rgba(160,200,255,0.7);margin-bottom:24px;line-height:1.6;">
             Use the code below to sign in. It expires in <strong style="color:#f0f6ff;">10 minutes</strong>.
