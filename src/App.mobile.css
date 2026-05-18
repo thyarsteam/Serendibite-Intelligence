@@ -1,0 +1,402 @@
+/* ═══════════════════════════════════════════════════════════════════
+   App.mobile.css — Mobile fixes for Serendibite Intelligence
+   Import AFTER App.css in App.js
+   Only activates at ≤ 768px
+═══════════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+  /* ── 1. APP SHELL ─────────────────────────────────────────────── */
+  .app {
+    flex-direction: column;
+    height: 100svh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── 2. SIDEBAR — slide-in drawer, fully off-screen by default ── */
+  .sidebar-persistent-panel {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    height: 100svh !important;
+    width: 280px !important;
+    z-index: 500 !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: none !important;
+  }
+
+  /* open state */
+  .app.sidebar-open .sidebar-persistent-panel {
+    transform: translateX(0) !important;
+    box-shadow: 6px 0 40px rgba(0, 0, 0, 0.6) !important;
+  }
+
+  /* collapsed = same as default (off-screen) */
+  .app.sidebar-collapsed .sidebar-persistent-panel {
+    transform: translateX(-100%) !important;
+  }
+
+  /* ── 3. MAIN PANEL — always full width since sidebar is floating ─ */
+  .main {
+    width: 100% !important;
+    min-width: 0 !important;
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100svh !important;
+    overflow: hidden !important;
+  }  /* ── 4. TOPBAR ────────────────────────────────────────────────── */
+  .topbar {
+    padding: 0 0.9rem !important;
+    padding-top: calc(0.6rem + env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: 0.6rem !important;
+    gap: 0.5rem !important;
+    min-height: calc(52px + env(safe-area-inset-top, 0px)) !important;
+  }
+
+  .topbar h1 { font-size: 0.88rem !important; }
+
+  .menu-toggle { width: 40px !important; height: 40px !important; }
+
+  .topbar-dashboard-btn {
+    padding: 0.35rem 0.6rem !important;
+    font-size: 0.60rem !important;
+    min-height: 38px !important;
+  }
+
+  .topbar-avatar { width: 22px !important; height: 22px !important; }
+
+  .active-model-chip {
+    max-width: 85px !important;
+    font-size: 0.52rem !important;
+  }
+
+  /* logout button */
+  .topbar > button:not(.menu-toggle):not(.topbar-dashboard-btn):not(.active-model-chip) {
+    padding: 0.4rem 0.65rem !important;
+    font-size: 0.56rem !important;
+    min-height: 38px !important;
+  }
+
+  /* ── 5. CHAT CONTAINER ───────────────────────────────────────── */
+  .chat-container {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    padding: 0.85rem !important;
+    padding-bottom: 1rem !important;
+    gap: 0.7rem !important;
+    background-image: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    scrollbar-width: none !important;
+  }
+  .chat-container::-webkit-scrollbar { display: none !important; }
+
+  /* ── 6. BUBBLES ──────────────────────────────────────────────── */
+  .bubble {
+    max-width: 85% !important;
+    gap: 0.5rem !important;
+  }
+
+  .bubble-body {
+    font-size: 0.875rem !important;
+    line-height: 1.7 !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+
+  .user-bubble .bubble-body {
+    border-radius: 18px 18px 4px 18px !important;
+    clip-path: none !important;
+    padding: 0.7rem 1rem !important;
+  }
+
+  .ai-bubble .bubble-body {
+    border-radius: 18px 18px 18px 4px !important;
+    padding: 0.7rem 1rem !important;
+  }
+
+  /* code blocks — scroll horizontally, don't bleed */
+  .bubble .code-block-wrapper {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+  .bubble .code-block-wrapper pre {
+    overflow-x: auto !important;
+    font-size: 0.72rem !important;
+    padding: 0.75rem !important;
+  }
+
+  /* KaTeX — scroll horizontally */
+  .bubble .katex-display {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* image previews */
+  .bubble-image-preview {
+    max-width: 100% !important;
+    max-height: 220px !important;
+    border-radius: 10px !important;
+  }
+
+  /* ── 7. EMPTY STATE ──────────────────────────────────────────── */
+  .empty-state {
+    min-height: auto !important;
+    padding: 2rem 1rem 1rem !important;
+    justify-content: flex-start !important;
+  }
+
+  .empty-title { font-size: clamp(2rem, 9vw, 2.8rem) !important; line-height: 1 !important; }
+  .empty-subtitle { font-size: 0.80rem !important; }
+
+  .empty-suggestions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.6rem !important;
+    width: 100% !important;
+  }
+  .empty-suggestions button {
+    width: 100% !important;
+    font-size: 0.70rem !important;
+    padding: 0.7rem 0.65rem !important;
+    border-radius: 12px !important;
+    line-height: 1.4 !important;
+    text-align: left !important;
+  }
+
+  /* ── 8. INPUT CONTAINER ──────────────────────────────────────── */
+  .input-container {
+    padding: 0.6rem 0.75rem !important;
+    padding-bottom: calc(0.6rem + env(safe-area-inset-bottom, 0px)) !important;
+    gap: 0.45rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* pill-shaped input */
+  .arcade-input-wrap {
+    height: 46px !important;
+    border-radius: 23px !important;
+  }
+  .arcade-input-wrap.focused { border-radius: 23px !important; }
+  .arcade-input-display {
+    border-radius: 23px !important;
+    padding: 0 0.9rem 0 1.9rem !important;
+    font-size: max(16px, 0.80rem) !important; /* prevent iOS zoom */
+  }
+  .arcade-input-hidden {
+    font-size: max(16px, 0.80rem) !important; /* prevent iOS zoom */
+  }
+
+  /* send button */
+  .input-container > button:not(.attach-btn) {
+    height: 46px !important;
+    min-width: 52px !important;
+    padding: 0 1rem !important;
+    border-radius: 23px !important;
+  }
+
+  /* attach button */
+  .attach-btn {
+    width: 44px !important;
+    height: 46px !important;
+    border-radius: 50% !important;
+  }
+
+  /* plus dropdown opens upward */
+  .plus-dropdown {
+    bottom: calc(100% + 10px) !important;
+    top: auto !important;
+    left: 0 !important;
+    border-radius: 16px !important;
+    min-width: 185px !important;
+  }
+  .plus-option {
+    min-height: 46px !important;
+    font-size: 0.75rem !important;
+    padding: 0 1rem !important;
+    border-radius: 10px !important;
+  }
+
+  /* ── 9. ATTACHMENT BAR ───────────────────────────────────────── */
+  .attachment-bar { padding: 0.45rem 0.85rem !important; }
+  .attachment-chip {
+    border-radius: 10px !important;
+    max-width: min(220px, 70vw) !important;
+  }
+
+  /* ── 10. TOAST ───────────────────────────────────────────────── */
+  .toast {
+    bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important;
+    border-radius: 20px !important;
+    font-size: 0.68rem !important;
+  }
+
+  /* ── 11. AI DISCLAIMER ───────────────────────────────────────── */
+  .ai-disclaimer { display: none !important; }
+
+  /* ── 12. DASHBOARD — bottom sheet ───────────────────────────── */
+  .dashboard-overlay {
+    align-items: flex-end !important;
+    justify-content: stretch !important;
+  }
+  .dashboard-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: 92svh !important;
+    border-radius: 22px 22px 0 0 !important;
+    border-left: none !important;
+    border-top: var(--hairline) solid var(--border-hi) !important;
+    box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.65) !important;
+  }
+
+  /* ── 13. COOKIE BANNER ───────────────────────────────────────── */
+  .cookie-banner {
+    bottom: calc(70px + env(safe-area-inset-bottom, 0px)) !important;
+    border-radius: 16px !important;
+  }
+
+  /* ── 14. THEMES GRID ─────────────────────────────────────────── */
+  .themes-grid { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── 15. LOGIN SCREEN ────────────────────────────────────────── */
+  .login-screen {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto 1fr !important;
+    overflow-y: auto !important;
+  }
+  .login-welcome {
+    border-right: none !important;
+    border-bottom: var(--hairline) solid var(--border-hi) !important;
+    padding: 3rem 1.5rem 1.8rem !important;
+    text-align: center !important;
+    align-items: center !important;
+  }
+  .login-welcome::before { display: none !important; }
+  .login-welcome h1 { font-size: clamp(2rem, 9vw, 2.8rem) !important; }
+  .login-features {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+  .login-panel {
+    padding: 1.8rem 1.4rem calc(2.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .login-card { max-width: 100% !important; }
+
+  /* prevent iOS zoom on auth inputs */
+  .auth-form input {
+    font-size: max(16px, 0.82rem) !important;
+    height: 52px !important;
+    border-radius: 12px !important;
+  }
+  .primary-btn { height: 52px !important; border-radius: 12px !important; }
+
+  /* social buttons — single column */
+  .social-providers-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+  }
+  .social-provider-btn {
+    height: 50px !important;
+    border-radius: 12px !important;
+    flex-direction: row !important;
+    gap: 0.7rem !important;
+    font-size: 0.76rem !important;
+  }
+
+  /* OTP */
+  .otp-input {
+    width: 42px !important;
+    height: 54px !important;
+    font-size: max(16px, 1.4rem) !important;
+    border-radius: 10px !important;
+  }
+
+  /* onboarding */
+  .onboarding-field input {
+    font-size: max(16px, 0.82rem) !important;
+    height: 52px !important;
+    border-radius: 12px !important;
+  }
+
+  /* ── 16. BOTTOM NAV BAR ──────────────────────────────────────── */
+  .mobile-bottom-nav {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    height: calc(60px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: color-mix(in srgb, var(--surface) 96%, transparent);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    border-top: var(--hairline) solid var(--border-hi);
+    flex-shrink: 0;
+    z-index: 100;
+  }
+
+  .mobile-nav-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.18s;
+    padding-top: 0.3rem;
+    position: relative;
+    min-height: 50px;
+  }
+
+  .mobile-nav-btn.active { color: var(--accent3); }
+
+  .mobile-nav-btn.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 3px;
+    border-radius: 0 0 3px 3px;
+    background: var(--accent3);
+  }
+
+  .mobile-nav-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.44rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+}
+
+/* ── Small phones ≤ 390px ─────────────────────────────────────── */
+@media (max-width: 390px) {
+  .topbar h1 { font-size: 0.78rem !important; }
+  .active-model-chip { display: none !important; }
+  .bubble { max-width: 92% !important; }
+  .empty-suggestions { grid-template-columns: 1fr !important; }
+}
+
+/* ── Landscape phones ─────────────────────────────────────────── */
+@media (max-height: 500px) and (orientation: landscape) and (max-width: 900px) {
+  .topbar {
+    padding-top: calc(0.25rem + env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: 0.25rem !important;
+  }
+  .chat-container {
+    padding: 0.5rem 0.85rem !important;
+    padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .empty-suggestions { flex-direction: row !important; }
+  .mobile-bottom-nav { display: none !important; }
+}
