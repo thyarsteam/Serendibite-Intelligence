@@ -1038,7 +1038,7 @@ function App() {
   function switchTheme(id) {
     setCurrentTheme(id);
     try { localStorage.setItem("si_theme", id); } catch {}
-    showToast(`✨ ${GEM_THEMES.find(t => t.id === id)?.name} theme applied`);
+    showToast(`${GEM_THEMES.find(t => t.id === id)?.name} theme applied`);
   }
 
   // ── GSAP anims ────────────────────────────────────────────────────────────
