@@ -61,7 +61,7 @@ exports.handler = async (event) => {
         <div style="font-family:monospace;max-width:480px;margin:0 auto;padding:32px;background:#0d1a4a;color:#f0f6ff;border-radius:8px;">
           <p style="font-size:12px;letter-spacing:0.15em;color:#80d4ff;margin-bottom:8px;">// SERENDIBITE INTELLIGENCE</p>
           <h2 style="font-size:22px;font-weight:700;margin-bottom:16px;">Your sign-in code</h2>
-          <p style="color:rgba(6, 7, 8, 0.7);margin-bottom:24px;line-height:1.6;">
+          <p style="color:rgba(160,200,255,0.7);margin-bottom:24px;line-height:1.6;">
             Use the code below to sign in. It expires in <strong style="color:#f0f6ff;">10 minutes</strong>.
           </p>
           <div style="font-size:36px;font-weight:800;letter-spacing:0.25em;text-align:center;
