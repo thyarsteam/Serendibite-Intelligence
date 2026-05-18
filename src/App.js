@@ -39,6 +39,7 @@ import {
 
 import { auth, db } from "./firebase";
 import "./App.css";
+import "./App.mobile.css";
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 const SUPPORTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
@@ -978,6 +979,7 @@ function App() {
   // Sidebar state — persistent (stays open)
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [sidebarTab, setSidebarTab] = useState("chats"); // "chats" | "codes" | "models" | "customize"
+  const [mobileNavTab, setMobileNavTab] = useState("chat"); // "chat" | "code" | "models" | "customize"
 
   // Search
   const [searchQuery, setSearchQuery] = useState("");
@@ -1013,6 +1015,19 @@ function App() {
   const plusMenuRef = useRef(null);
   const [isTempChat, setIsTempChat] = useState(false);
   const [streamingMsgId, setStreamingMsgId] = useState(null);
+
+  // ── Mobile detection ──────────────────────────────────────────────────────
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    const handler = (e) => {
+      setIsMobile(e.matches);
+      if (e.matches) setSidebarOpen(false);
+    };
+    mq.addEventListener("change", handler);
+    if (mq.matches) setSidebarOpen(false);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   // ── Apply theme on mount and change ──────────────────────────────────────
   useEffect(() => {
@@ -1555,8 +1570,28 @@ function App() {
   }
 
   // ── MAIN APP ──────────────────────────────────────────────────────────────
+  // Mobile nav handler — opens sidebar to correct tab, or closes if tapping active tab again
+  function handleMobileNav(tab) {
+    const tabMap = { chat: "chats", code: "codes", models: "models", customize: "customize" };
+    if (mobileNavTab === tab && sidebarOpen) {
+      setSidebarOpen(false);
+    } else {
+      setMobileNavTab(tab);
+      setSidebarTab(tabMap[tab] || "chats");
+      setSidebarOpen(true);
+    }
+  }
+
   return (
     <div className={`app sidebar-persistent ${sidebarOpen ? "sidebar-open" : "sidebar-collapsed"}`}>
+      {/* Mobile backdrop — tap to close sidebar */}
+      {isMobile && sidebarOpen && (
+        <div
+          style={{ position: "fixed", inset: 0, zIndex: 490 }}
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Close sidebar"
+        />
+      )}
       {/* Dashboard */}
       <AnimatePresence>
         {showDashboard && (
@@ -1811,7 +1846,7 @@ function App() {
           )}
 
           {/* Active model chip */}
-          <button className="active-model-chip" onClick={() => { setSidebarTab("models"); setSidebarOpen(true); }} title={`Model: ${selectedModel.label}`}>
+          <button className="active-model-chip" onClick={() => { setSidebarTab("models"); setSidebarOpen(true); setMobileNavTab("models"); }} title={`Model: ${selectedModel.label}`}>
             <span>{selectedModel.icon}</span>
             <span className="active-model-dot" />
             <span className="active-model-label">{selectedModel.label}</span>
@@ -1964,6 +1999,73 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* ── MOBILE BOTTOM NAVIGATION ── */}
+      {isMobile && (
+        <nav className="mobile-bottom-nav" role="navigation" aria-label="Main navigation">
+          {/* Chat */}
+          <button
+            className={`mobile-nav-btn ${mobileNavTab === "chat" ? "active" : ""}`}
+            onClick={() => handleMobileNav("chat")}
+            aria-label="Chat"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <span className="mobile-nav-label">Chat</span>
+          </button>
+          {/* Code */}
+          <button
+            className={`mobile-nav-btn ${mobileNavTab === "code" ? "active" : ""}`}
+            onClick={() => handleMobileNav("code")}
+            aria-label="Code"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+            <span className="mobile-nav-label">Code</span>
+          </button>
+          {/* Models */}
+          <button
+            className={`mobile-nav-btn ${mobileNavTab === "models" ? "active" : ""}`}
+            onClick={() => handleMobileNav("models")}
+            aria-label="Models"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+            </svg>
+            <span className="mobile-nav-label">Models</span>
+          </button>
+          {/* Themes */}
+          <button
+            className={`mobile-nav-btn ${mobileNavTab === "customize" ? "active" : ""}`}
+            onClick={() => handleMobileNav("customize")}
+            aria-label="Themes"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41M22 12h-2M4 12H2M19.07 19.07l-1.41-1.41M6.34 6.34L4.93 4.93"/>
+              <path d="M12 2v2M12 20v2"/>
+            </svg>
+            <span className="mobile-nav-label">Themes</span>
+          </button>
+          {/* Profile */}
+          <button
+            className={`mobile-nav-btn ${showDashboard ? "active" : ""}`}
+            onClick={() => setShowDashboard(true)}
+            aria-label="Profile"
+          >
+            <Avatar
+              photoURL={userProfile.photoURL}
+              name={userProfile.name}
+              className="topbar-avatar"
+              imgClassName="topbar-avatar-img"
+            />
+            <span className="mobile-nav-label">Profile</span>
+          </button>
+        </nav>
+      )}
     </div>
   );
 }
