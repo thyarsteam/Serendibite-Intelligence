@@ -1704,7 +1704,7 @@ body::before {
 
   .bubble { max-width: 84%; padding: 0.75rem 1rem; font-size: 0.875rem; line-height: 1.7; border-radius: 18px; }
   .message.user .bubble      { clip-path: none; border-radius: 18px 18px 4px 18px; }
-  .message.assistant .bubble { border-radius: 18px 18px 18px 4px; border-left: none; border-top: var(--hairline) solid var(--border); }
+  .message.assistant .bubble { border-radius: 18px 18px 18px 4px; border-left: none; }
 
   .empty-state { min-height: 65vh; justify-content: flex-start; padding-top: 14vh; }
   .empty-title { line-height: 1; }
